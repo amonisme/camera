@@ -77,6 +77,7 @@ BEGIN_MESSAGE_MAP(CcameraDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CcameraDlg::OnBnClickedRecord)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BUTTON2, &CcameraDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CcameraDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -223,9 +224,10 @@ void CcameraDlg::OnTimer(UINT_PTR nIDEvent)
 
 	IplImage* img = 0;
 	char image_name[25];
-	if (true)
+	if (capture)
 	{
 		m_CvvImage.DrawToHDC(hDC, &rect);
+		SaveImg(m_Frame,0);
 		//char key = cvWaitKey(2000);
 	}
 
@@ -243,7 +245,18 @@ void CcameraDlg::OnBnClickedButton2()
 	pDC->StretchBlt(rect.left, rect.top, rect.Width(), rect.Height(), &MemDC, 0, 0, 48, 48, SRCCOPY);*/
 }
 
-int CcameraDlg::SaveImg (Mat mat, int flag)
+
+void CcameraDlg::OnBnClickedButton3()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	IplImage* m_Frame;
+	m_Frame = cvQueryFrame(capture);
+	CvvImage m_CvvImage;
+	m_CvvImage.CopyOf(m_Frame, 1);
+	SaveImg(m_Frame, 1);
+}
+
+int CcameraDlg::SaveImg(Mat mat, int flag)
 {
 	//flag=1 不新建文件夹；flag=0新建文件夹
 	char path[100] = "F:\\pic\\";
@@ -255,6 +268,12 @@ int CcameraDlg::SaveImg (Mat mat, int flag)
 	{
 		_mkdir(path);
 	}
+	else if (1 == flag)
+	{
+		strcat(path, "\\手工截图");
+		_mkdir(path);
+	}
+	_mkdir(path);
 	strftime(tmp, sizeof(tmp), "%H_%M_%S", localtime(&t));
 	strcat(path, "\\");
 	strcat(path, tmp);

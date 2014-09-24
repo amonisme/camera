@@ -38,4 +38,5 @@ public:
 	afx_msg int SaveImg(Mat mat, int flag);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedButton3();
 };
