@@ -177,8 +177,7 @@ HCURSOR CcameraDlg::OnQueryDragIcon()
 
 
 
-void CcameraDlg::OnBnClickedRecord()
-{
+void CcameraDlg::OnBnClickedRecord(){
 	// TODO:  在此添加控件通知处理程序代码
 	//AfxMessageBox("OK");  
 	if (!capture)
@@ -206,6 +205,7 @@ void CcameraDlg::OnBnClickedRecord()
 
 	// 设置计时器,每10ms触发一次事件  
 	SetTimer(1, 10, NULL);
+
 }
 
 
@@ -244,7 +244,6 @@ void CcameraDlg::OnBnClickedButton2()
 	//MemDC.SelectObject(&m_Bitmap1);
 	pDC->StretchBlt(rect.left, rect.top, rect.Width(), rect.Height(), &MemDC, 0, 0, 48, 48, SRCCOPY);*/
 }
-
 
 void CcameraDlg::OnBnClickedButton3()
 {
